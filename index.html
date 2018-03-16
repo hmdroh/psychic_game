@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic Game</title>
+</head>
+
+<body>
+    <h1>Guess what letter?</h1>
+    <p>Please press a letter to compare!</p>
+    <script type="text/javascript">
+        var randomLetter;
+        var guessesArray = []; //emtpy array for storing keys pressed.
+        var wins = 0;
+        var loses = 0;
+        var numberOfGuesses = 10;
+
+
+        function generateTxt() {
+            var res = "";
+            for (var x = 0; x < guessesArray.length; x++) {
+                res = res  + guessesArray[x] + " - ";
+            }
+            document.getElementById("text").innerHTML =
+                "Wins: " + wins + "<br>" +
+                "Losses: " + loses + "<br>" +
+                "Guesses left: " + numberOfGuesses + "<br>" +
+                "Your guesses so far: " + res;
+        }
+
+        genRandomLetter();
+        function genRandomLetter() {
+            var rNumber = Math.floor(Math.random() * 26) //generate random number
+            var letter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+            randomLetter = letter[rNumber]; //generate rndome letter
+            console.log("random letter gen: " + randomLetter);
+        }
+
+
+        document.onkeypress = function (event) {
+            var pressedKey = event.key;
+            pressedKey = pressedKey.toLowerCase(); //change the letter to lower case
+            console.log("keypressed: " + pressedKey);
+            console.log(guessesArray);
+
+            if (guessesArray.indexOf(pressedKey) >= 0) {
+                // do nothing cause its already pressed.
+                document.getElementById("text").innerHTML += "<br><br>Please don't use repeated letter: " + pressedKey + ". Try writing more letters."
+            }
+            else if (numberOfGuesses === 0) {
+                guessesArray = []; //emtpy array for storing keys pressed.
+                loses++; // increment loses
+                numberOfGuesses = 10; // reset number of guesses
+                generateTxt();
+
+            } else {
+
+
+
+                if (pressedKey === randomLetter) {
+                    // win
+                    wins++;
+                    numberOfGuesses = 10;
+                    guessesArray = [];
+                    genRandomLetter();
+                    generateTxt();
+                } else {
+                    //wrong guess
+                    guessesArray.push(pressedKey);
+                    generateTxt();
+                    console.log(numberOfGuesses);
+                    numberOfGuesses--; // lower the number of guesses
+
+                }
+
+
+
+            }
+
+        };
+
+
+    </script>
+</body>
+<div id="text"></div>
+
+</html>
