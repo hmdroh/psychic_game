@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <title>Psychic Game</title>
 </head>
 
@@ -18,6 +20,13 @@
         var loses = 0;
         var numberOfGuesses = 10;
 
+
+
+
+var inputElement = document.getElementById('hiddenInput');
+    inputElement.style.visibility = 'visible'; // unhide the input
+    inputElement.focus(); // focus on it so keyboard pops
+    inputElement.style.visibility = 'hidden'; // hide it again
 
         function generateTxt() {
             var res = "";
@@ -86,5 +95,6 @@
     </script>
 </body>
 <div id="text"></div>
+<input id="hiddenInput" style="visibility: hidden;">
 
 </html>
